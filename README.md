@@ -7,4 +7,4 @@ Graph-search Algorithms Implementation in Java
 
 *Breadth-frist search
 
-*A* search
+*AStar search
