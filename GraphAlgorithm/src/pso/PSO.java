@@ -19,10 +19,11 @@ public class PSO {
         this.globalBestSolutions = new double[Constants.NUM_DIMENSIONS];
         this.particleSwarm = new Particle[Constants.NUM_PARTICLES];
         generateRandomSolution();
+        
     }
-
-    
+   
     public void solve(){
+        epochs = 0;
         for(int i =0; i<Constants.NUM_PARTICLES;++i){
             double[] locations = initializeLocation();
             double[] velocity = initializeVelocity();
@@ -32,7 +33,6 @@ public class PSO {
         
         while(epochs < Constants.MAX_ITERATIONS){
             for(Particle actualParticle : this.particleSwarm){
-                
                 //update velocity
                 for(int i =0; i<actualParticle.getVelocity().length;++i){
                     double rp = Math.random();
@@ -54,25 +54,32 @@ public class PSO {
                     }
                 }
                 
-                
-                if(Constants.f(actualParticle.getPosition())>Constants.f(actualParticle.getBestPosition())){
+                //System.out.println("epochs :"+actualParticle.getPosition()[0]+" "+actualParticle.getPosition()[1]+"value :"+Constants.Griewank(actualParticle.getPosition()));
+                //System.out.println("globalBestSolutions :"+globalBestSolutions[0]+" "+globalBestSolutions[1]+" value:"+ Constants.Griewank(globalBestSolutions));
+
+                if(Constants.Rastrigin(actualParticle.getPosition())< Constants.Rastrigin(actualParticle.getBestPosition())){
                     actualParticle.setBestPosition(actualParticle.getPosition());
                 }
-                
-                if(Constants.f(actualParticle.getBestPosition())> Constants.f(globalBestSolutions)){
+
+                if(Constants.Rastrigin(actualParticle.getBestPosition())< Constants.Rastrigin(globalBestSolutions)){
                     System.arraycopy(actualParticle.getBestPosition(), 0, globalBestSolutions, 0, actualParticle.getBestPosition().length);
                 }
             }
             this.epochs++;
         }
     }
-    
+    private void PrintData(double[] data)
+    {
+        System.out.println("x:"+data[0]+"y:"+data[1]);
+    }
     private void generateRandomSolution() {
         for(int i = 0; i< Constants.NUM_DIMENSIONS; ++i)
         {
             double randCoordinate = random(Constants.MIN, Constants.MAX);
             this.globalBestSolutions[i] = randCoordinate;
+            
         }
+        //System.out.println(" random x: " + this.globalBestSolutions[0]  +" random y: "+this.globalBestSolutions[1]);
     }
     
     private double[] initializeLocation(){
@@ -97,7 +104,8 @@ public class PSO {
     public void showSoluction(){
         System.out.println("Solution for PSO problem!");
         System.out.println("Best solution x: "+this.globalBestSolutions[0]+" - y:" +this.globalBestSolutions[1]);
-        System.out.println("Value f(x,y) = " + Constants.f(globalBestSolutions));
+        System.out.println("Value f(x,y) = " + Constants.Rastrigin(globalBestSolutions));
+        System.out.println("Global minimum is :" + Constants.Rastrigin(new double[]{0,0}));
     }
     
 }

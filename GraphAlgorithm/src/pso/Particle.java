@@ -22,6 +22,7 @@ public class Particle {
         
         System.arraycopy(velocity, 0, this.velocity, 0, velocity.length);
         System.arraycopy(position, 0, this.position, 0, position.length);
+        System.arraycopy(position, 0, this.bestPosition, 0, position.length);
     }
 
     public double[] getPosition() {
@@ -49,7 +50,7 @@ public class Particle {
     }
     
     public void CheckBestSolution(double[] globalBestSolution){
-        if(Constants.f(this.bestPosition)<Constants.f(globalBestSolution))
+        if(Constants.Griewank(this.bestPosition)<Constants.Griewank(globalBestSolution))
             globalBestSolution = this.bestPosition;
     }
     
