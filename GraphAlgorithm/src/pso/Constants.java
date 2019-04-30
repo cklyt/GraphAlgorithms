@@ -11,12 +11,12 @@ package pso;
  */
 public class Constants {
 
-    public static int MAX_ITERATIONS = 100;
+    public static int MAX_ITERATIONS = 1000;
     
     private Constants(){}
     
     public final static int NUM_DIMENSIONS =2;
-    public final static int NUM_PARTICLES = 1; //the number of particles in the swarm
+    public final static int NUM_PARTICLES = 10; //the number of particles in the swarm
     public final static double MIN = -5;
     public final static double MAX = 5;
     public final static double w = 0.729;   //inertia weight:define the memory of the system. how significant is the last step taking place.
@@ -50,4 +50,12 @@ public class Constants {
         return 10*d+sum;
         
     }
+    public final static double DropWave(double[] data){
+        double x1 = data[0];
+        double x2 = data[1];
+        double frac1 = 1 + Math.cos(12*Math.sqrt(x1*x1+x2*x2));
+        double frac2 = 0.5 *(x1 * x1+x2* x2)+2;
+        return -frac1/frac2;
+    }
+            
 }

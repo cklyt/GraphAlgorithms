@@ -57,11 +57,11 @@ public class PSO {
                 //System.out.println("epochs :"+actualParticle.getPosition()[0]+" "+actualParticle.getPosition()[1]+"value :"+Constants.Griewank(actualParticle.getPosition()));
                 //System.out.println("globalBestSolutions :"+globalBestSolutions[0]+" "+globalBestSolutions[1]+" value:"+ Constants.Griewank(globalBestSolutions));
 
-                if(Constants.Rastrigin(actualParticle.getPosition())< Constants.Rastrigin(actualParticle.getBestPosition())){
+                if(Constants.DropWave(actualParticle.getPosition())< Constants.DropWave(actualParticle.getBestPosition())){
                     actualParticle.setBestPosition(actualParticle.getPosition());
                 }
 
-                if(Constants.Rastrigin(actualParticle.getBestPosition())< Constants.Rastrigin(globalBestSolutions)){
+                if(Constants.DropWave(actualParticle.getBestPosition())< Constants.DropWave(globalBestSolutions)){
                     System.arraycopy(actualParticle.getBestPosition(), 0, globalBestSolutions, 0, actualParticle.getBestPosition().length);
                 }
             }
@@ -104,8 +104,8 @@ public class PSO {
     public void showSoluction(){
         System.out.println("Solution for PSO problem!");
         System.out.println("Best solution x: "+this.globalBestSolutions[0]+" - y:" +this.globalBestSolutions[1]);
-        System.out.println("Value f(x,y) = " + Constants.Rastrigin(globalBestSolutions));
-        System.out.println("Global minimum is :" + Constants.Rastrigin(new double[]{0,0}));
+        System.out.println("Value f(x,y) = " + Constants.DropWave(globalBestSolutions));
+        System.out.println("Global minimum is :" + Constants.DropWave(new double[]{0,0}));
     }
     
 }
